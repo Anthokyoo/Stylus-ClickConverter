@@ -19,13 +19,6 @@ Analysis of the raw hexadecimal data stream reveals that the 10th byte (index 9)
 Instead of injecting an instantaneous combined click, the application separates the `LEFTDOWN` and `LEFTUP` Win32 `mouse_event` calls to support drag-and-drop. 
 To handle hardware imperfections, it implements a thread-safe queue system with a 40ms hardware debounce timer. This filter absorbs microscopic physical bounces ("pen bounce") that occur when the hard plastic nib strikes the screen, preventing unintended double-clicks or drag interruptions. Additionally, a 15ms micro-delay is applied prior to the `LEFTDOWN` event to account for cursor teleportation rendering delays within the Unity engine.
 
-## Mandatory OS Configuration
-
-To ensure uninterrupted drag-and-drop functionality, Windows must be prevented from hijacking long-press or drag motions for native touch gestures. Failure to apply these settings will result in Windows prematurely terminating the `LEFTDOWN` state when the stylus moves beyond a specific origin radius.
-
-1. **Tablet Driver:** Disable "Windows Ink" within the proprietary tablet software (e.g., Wacom, Huion, XP-Pen) if applicable.
-2. **Windows Settings:** Navigate to `Settings > Bluetooth & devices > Pen & Windows Ink`. Expand the additional settings and **disable** the following option: *"Let me use my pen as a mouse when available"*.
-
 ## Known Hardware Behaviors
 
 * **Fast Swipes / Dropped Drags:** Executing a very rapid drag motion across the digitizer may cause a dragged item to drop prematurely. This is a physical hardware limitation, not a software defect. During fast and wide swipes, the stylus nib naturally loses physical contact with the surface due to reduced friction and hand elevation. If this lift-off exceeds the 40ms debounce threshold, the application accurately interprets it as a deliberate release and triggers a `LEFTUP` event. Increasing the timeout further would introduce noticeable input lag when intentionally dropping items.
