@@ -30,15 +30,15 @@ As the Raw Input packet structure is highly standardized, this solution is expec
 
 1. Navigate to the Releases section of this repository.
 2. Download the compiled executable (`ClickConverter.exe`).
-3. Run the application. A transparent overlay will appear in the top-left corner of the screen displaying the current status (ON).
+3. Run the application. A compact, semi-transparent overlay interface will appear in the top-left corner of the screen displaying the current operational state.
 4. The stylus can now be used to register standard mouse clicks within the target application.
 
-**Keyboard Shortcuts:**
-* `T + Y` : Toggle the converter ON or OFF.
-* `U + I` : Terminate the application process.
+**Interface Controls:**
+* **`STATUS: ON / OFF` Button** : Tap directly with the stylus to toggle the conversion state dynamically (useful when text input is required in-game).
+* **`QUIT` Button** : Terminate the application process safely.
 
 ## Source Code
 
 Developers can clone this repository to review or compile the Python source code.
-* Dependencies: `pynput` is required for keyboard shortcut listening. `ctypes` and `tkinter` are utilized from the standard library.
+* Dependencies: Core functionalities rely exclusively on native Windows libraries (`ctypes`) and the standard graphical interface library (`tkinter`).
 * Configuration: If a specific stylus brand utilizes a different byte index for pressure state, the target byte can be adjusted by modifying `raw_data[9]` in the source code after conducting raw packet analysis.
